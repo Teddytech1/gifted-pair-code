@@ -65,11 +65,11 @@ router.get('/', async (req, res) => {
     const id = giftedid(); // Ensure `giftedid` is defined
     let num = req.query.number;
 
-    async function GIFTED_PAIR_CODE() {
+    async function TEDDY_PAIR_CODE() {
         const { state, saveCreds } = await useMultiFileAuthState('./temp/' + id);
 
         try {
-            let Gifted = Gifted_Tech({
+            let Teddy = Teddy_Tech({
                 auth: {
                     creds: state.creds,
                     keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "fatal" }).child({ level: "fatal" })),
@@ -79,10 +79,10 @@ router.get('/', async (req, res) => {
                 browser: Browsers.macOS("Safari")
             });
 
-            if (!Gifted.authState.creds.registered) {
+            if (!Teddy.authState.creds.registered) {
                 await delay(1500);
                 num = num.replace(/[^0-9]/g, '');
-                const code = await Gifted.requestPairingCode(num);
+                const code = await Teddy.requestPairingCode(num);
                 console.log(`Your Code: ${code}`);
 
                 if (!res.headersSent) {
@@ -90,8 +90,8 @@ router.get('/', async (req, res) => {
                 }
             }
 
-            Gifted.ev.on('creds.update', saveCreds);
-            Gifted.ev.on("connection.update", async (s) => {
+            Teddy.ev.on('creds.update', saveCreds);
+            Teddy.ev.on("connection.update", async (s) => {
                 const { connection, lastDisconnect } = s;
 
                 if (connection === "open") {
@@ -112,26 +112,26 @@ router.get('/', async (req, res) => {
 
                     const session = await Gifted.sendMessage(Gifted.user.id, { text: sid });
 
-                    const GIFTED_TEXT = `
+                    const TEDDY_TEXT = `
 *✅sᴇssɪᴏɴ ɪᴅ ɢᴇɴᴇʀᴀᴛᴇᴅ✅*
 ______________________________
 ╔════◇
-║『 𝐘𝐎𝐔'𝐕𝐄 𝐂𝐇𝐎𝐒𝐄𝐍 𝐆𝐈𝐅𝐓𝐄𝐃 𝐌𝐃 』
+║『 𝐘𝐎𝐔'𝐕𝐄 𝐂𝐇𝐎𝐒𝐄𝐍 𝐓𝐄𝐃𝐃𝐘 𝐗𝐌𝐃 』
 ╚══════════════╝
 ╔═════◇
 ║ 『••• 𝗩𝗶𝘀𝗶𝘁 𝗙𝗼𝗿 𝗛𝗲𝗹𝗽 •••』
-║❒ 𝐓𝐮𝐭𝐨𝐫𝐢𝐚𝐥: _youtube.com/@giftedtechnexus_
-║❒ 𝐎𝐰𝐧𝐞𝐫: _https://t.me/mouricedevs_
-║❒ 𝐑𝐞𝐩𝐨: _https://github.com/mauricegift/gifted-md_
-║❒ 𝐖𝐚𝐂𝐡𝐚𝐧𝐧𝐞𝐥: _https://whatsapp.com/channel/0029Vb3hlgX5kg7G0nFggl0Y_
+║❒ 𝐓𝐮𝐭𝐨𝐫𝐢𝐚𝐥: _youtube.com/@Teddytechsupport_
+║❒ 𝐎𝐰𝐧𝐞𝐫: _https://t.me/teddy_md_
+║❒ 𝐑𝐞𝐩𝐨: _https://github.com/Teddytech1_
+║❒ 𝐖𝐚𝐂𝐡𝐚𝐧𝐧𝐞𝐥: _https://whatsapp.com/channel/0029Vb4WwGo4CrffIZhlnv1Y_
 ║ 💜💜💜
 ╚══════════════╝ 
- 𝗚𝗜𝗙𝗧𝗘𝗗-𝗠𝗗 𝗩𝗘𝗥𝗦𝗜𝗢𝗡 5.𝟬.𝟬
+ 𝐓𝐄𝐃𝐃𝐘-𝐗𝐌𝗗 𝗩𝗘𝗥𝗦𝗜𝗢𝗡 5.𝟬.𝟬
 ______________________________
 
 Use your Session ID Above to Deploy your Bot.`;
 
-                    await Gifted.sendMessage(Gifted.user.id, { text: GIFTED_TEXT }, { quoted: session });
+                    await Teddy.sendMessage(Teddy.user.id, { text: TEDDY_TEXT }, { quoted: session });
 
                     await delay(100);
                     await Gifted.ws.close();
@@ -151,7 +151,7 @@ Use your Session ID Above to Deploy your Bot.`;
         }
     }
 
-    await GIFTED_PAIR_CODE();
+    await TEDDY_PAIR_CODE();
 });
 
 module.exports = router;
